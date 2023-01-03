@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ohlalaspa/screens/enterPin.dart';
 import 'package:ohlalaspa/screens/otpVerification.dart';
 
 class ForgotPin extends StatelessWidget {

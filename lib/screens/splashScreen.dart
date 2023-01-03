@@ -2,7 +2,9 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:ohlalaspa/screens/bottomNavBar.dart';
 import 'package:ohlalaspa/screens/signup.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 var completeUserData;
 
@@ -14,39 +16,60 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<Splashscreen> {
-  @override
-  void initState() {
-    super.initState();
-    Timer(const Duration(seconds: 3), () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: ((context) {
-            return const Signup();
-            // return const MainBottomNavBarScreen();
-          }),
-        ),
-      );
+  String userId = '';
+  getuserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = (prefs.getString('userId'))!;
     });
   }
 
   @override
+  void initState() {
+    super.initState();
+    getuserId();
+
+    Timer(
+      const Duration(seconds: 3),
+      () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: ((context) {
+              if (userId == '') {
+                return const Signup();
+              } else {
+                return const MainBottomNavBar();
+              }
+            }),
+          ),
+        );
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: SizedBox(
-                height: 160,
-                width: 160,
-                child: Image.asset(
-                  'images/logoPng.png',
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: SizedBox(
+                  height: 160,
+                  width: 160,
+                  child: Image.asset(
+                    'images/logoPng.png',
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
