@@ -1,4 +1,4 @@
-package com.example.ohlalaspa
+package com.sjempowers.ohlalaspa
 
 import io.flutter.embedding.android.FlutterActivity
 

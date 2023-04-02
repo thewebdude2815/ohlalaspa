@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:ohlalaspa/constants/appConstants.dart';
 import 'package:ohlalaspa/screens/homeScreen.dart';
-import 'package:ohlalaspa/screens/menu.dart';
+import 'package:ohlalaspa/screens/menus/menu.dart';
 import 'package:ohlalaspa/screens/profile.dart';
+import 'package:ohlalaspa/screens/qrScanner/qrScanner.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainBottomNavBar extends StatefulWidget {
   const MainBottomNavBar({super.key});
@@ -14,19 +16,36 @@ class MainBottomNavBar extends StatefulWidget {
 
 class _MainBottomNavBarState extends State<MainBottomNavBar> {
   int index = 0;
+
+  storeUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String uId = prefs.getString('userId')!;
+    if (mounted) {
+      setState(() {
+        userIdFromDB = uId;
+      });
+    }
+  }
+
   List<Widget> screens = [
     const HomeScreen(),
-    Container(),
+    const QRScanner(),
     const Menu(),
     const Profile(),
   ];
+  @override
+  void initState() {
+    storeUserId();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[index],
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(12),
-        margin: const EdgeInsets.all(12),
+        // margin: const EdgeInsets.all(12),
         child: GNav(
             selectedIndex: index,
             onTabChange: (value) {
@@ -62,11 +81,11 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
                 text: 'Scan QR Code',
               ),
               GButton(
-                icon: Icons.image,
+                icon: Icons.menu,
                 text: 'Menu',
               ),
               GButton(
-                icon: Icons.density_medium,
+                icon: Icons.person,
                 text: 'Profile',
               )
             ]),

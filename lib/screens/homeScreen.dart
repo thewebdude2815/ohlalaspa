@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ohlalaspa/constants/appConstants.dart';
+import 'package:ohlalaspa/constants/texts.dart';
+import 'package:ohlalaspa/screens/notifications/notifications.dart';
 import 'package:ohlalaspa/widgets/avaliableServices.dart';
 import 'package:ohlalaspa/widgets/servicesTaken.dart';
 
@@ -38,18 +40,26 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(
                       width: 12,
                     ),
-                    const Text(
+                    Text(
                       'Welcome To',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: headingText1,
                     ),
                     Text(
-                      ' Oh La La Spa',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: mainAppColor),
+                      ' Oh la la Spa',
+                      style: headingText1.copyWith(color: mainAppColor),
                     ),
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) {
+                          return const Notifications();
+                        }));
+                      },
+                      child: Icon(
+                        Icons.notifications_rounded,
+                        color: mainAppColor,
+                      ),
+                    )
                   ],
                 ),
               ),

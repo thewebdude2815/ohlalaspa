@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ohlalaspa/constants/texts.dart';
 
 void showBenefitNameSheet(BuildContext context, String text) {
   var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
@@ -35,11 +36,7 @@ void showBenefitNameSheet(BuildContext context, String text) {
                   child: Text(
                 text,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+                style: headingText0,
               )),
             ),
           );

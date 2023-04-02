@@ -10,3 +10,9 @@ LinearGradient gradientColor = const LinearGradient(
       Color(0xFF652D90),
       Color(0xFF652D90),
     ]);
+String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+
+String baseURL = 'https://ohlala.boostupapp.com/api';
+
+// setting value in bottomNavbar.dart
+String? userIdFromDB;

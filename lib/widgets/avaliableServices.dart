@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
+import 'package:ohlalaspa/constants/appConstants.dart';
 import 'package:ohlalaspa/networking/networking.dart';
 import 'package:ohlalaspa/widgets/benefitNameBottomSheet.dart';
 import 'package:ohlalaspa/widgets/servicesCard.dart';
@@ -17,22 +20,29 @@ class _AvaliableServicesState extends State<AvaliableServices> {
   getavaliableServicesData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String uId = prefs.getString('userId')!;
-
-    NetworkHelper networkHelperProfile = NetworkHelper(
-        urlLink: 'http://ohlala.boostupapp.com/api/service/services?ID=$uId');
+    NetworkHelper networkHelperProfile =
+        NetworkHelper(urlLink: '$baseURL/service/services?ID=$uId');
 
     var dataProfile = await networkHelperProfile.getData();
-    print(dataProfile);
-    setState(() {
-      servicesdata = dataProfile;
-      isLoading = false;
-    });
+
+    if (mounted) {
+      setState(() {
+        servicesdata = dataProfile;
+        isLoading = false;
+      });
+    }
   }
 
   @override
   void initState() {
     getavaliableServicesData();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    getavaliableServicesData();
+    super.dispose();
   }
 
   @override
@@ -50,6 +60,7 @@ class _AvaliableServicesState extends State<AvaliableServices> {
                   showBenefitNameSheet(context, servicesdata[index]['name']);
                 },
                 child: ServicesCard(
+                  date: '',
                   duration: servicesdata[index]['duration'],
                   name: servicesdata[index]['name'],
                   type: servicesdata[index]['type'],

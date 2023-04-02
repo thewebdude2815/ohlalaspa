@@ -36,60 +36,55 @@ class _PinCheckState extends State<PinCheck> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Column(
-        children: [
-          Form(
-            key: formKey,
-            child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
-                child: PinCodeTextField(
-                  appContext: context,
-                  pastedTextStyle: TextStyle(
-                    color: Colors.green.shade600,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  length: 4,
-                  obscureText: true,
-                  obscuringCharacter: '*',
-                  blinkWhenObscuring: true,
-                  animationType: AnimationType.fade,
-                  // validator: (v) {
-                  //   if (v!.length < 3) {
-                  //     return "I'm from validator";
-                  //   } else {
-                  //     return null;
-                  //   }
-                  // },
-                  pinTheme: PinTheme(
-                      shape: PinCodeFieldShape.box,
-                      borderRadius: BorderRadius.circular(5),
-                      fieldHeight: 64,
-                      fieldWidth: 56,
-                      selectedColor: const Color(0xfff0f0f0),
-                      selectedFillColor:
-                          const Color(0xFF707070).withOpacity(0.03),
-                      inactiveFillColor:
-                          const Color(0xFF707070).withOpacity(0.03),
-                      inactiveColor: const Color(0xfff0f0f0),
-                      activeFillColor:
-                          const Color(0xFF707070).withOpacity(0.03),
-                      activeColor: const Color(0xfff0f0f0)),
-                  cursorColor: Colors.black,
-                  animationDuration: const Duration(milliseconds: 300),
-                  enableActiveFill: true,
-                  errorAnimationController: errorController,
-                  controller: textEditingController,
-                  keyboardType: TextInputType.number,
-                  onChanged: (value) {
-                    debugPrint(value);
-                    setState(() {
-                      currentText = value;
-                    });
-                  },
-                )),
-          ),
-        ],
+          child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Form(
+              key: formKey,
+              child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
+                  child: PinCodeTextField(
+                    appContext: context,
+                    pastedTextStyle: TextStyle(
+                      color: Colors.green.shade600,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    length: 4,
+                    obscureText: true,
+                    obscuringCharacter: '*',
+                    blinkWhenObscuring: true,
+                    animationType: AnimationType.fade,
+                    pinTheme: PinTheme(
+                        shape: PinCodeFieldShape.box,
+                        borderRadius: BorderRadius.circular(5),
+                        fieldHeight: 64,
+                        fieldWidth: 56,
+                        selectedColor: const Color(0xfff0f0f0),
+                        selectedFillColor:
+                            const Color(0xFF707070).withOpacity(0.03),
+                        inactiveFillColor:
+                            const Color(0xFF707070).withOpacity(0.03),
+                        inactiveColor: const Color(0xfff0f0f0),
+                        activeFillColor:
+                            const Color(0xFF707070).withOpacity(0.03),
+                        activeColor: const Color(0xfff0f0f0)),
+                    cursorColor: Colors.black,
+                    animationDuration: const Duration(milliseconds: 300),
+                    enableActiveFill: true,
+                    errorAnimationController: errorController,
+                    controller: textEditingController,
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      debugPrint(value);
+                      setState(() {
+                        currentText = value;
+                      });
+                    },
+                  )),
+            ),
+          ],
+        ),
       )),
     );
   }

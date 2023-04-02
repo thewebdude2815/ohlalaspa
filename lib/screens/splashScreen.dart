@@ -3,7 +3,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ohlalaspa/screens/bottomNavBar.dart';
-import 'package:ohlalaspa/screens/signup.dart';
+import 'signup/signup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var completeUserData;
@@ -16,12 +16,14 @@ class Splashscreen extends StatefulWidget {
 }
 
 class _SplashscreenState extends State<Splashscreen> {
-  String userId = '';
+  String? userId = '';
   getuserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      userId = (prefs.getString('userId'))!;
-    });
+    if (prefs.getString('userId') != null) {
+      setState(() {
+        userId = prefs.getString('userId');
+      });
+    }
   }
 
   @override
